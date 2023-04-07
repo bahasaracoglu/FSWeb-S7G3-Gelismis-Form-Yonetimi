@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import axios from "axios";
 
 export default function Form() {
   const initialData = {
@@ -21,14 +22,30 @@ export default function Form() {
     }
   }
 
+  //console.log(event)
+
   function resetForm() {
     setKullanici(initialData);
+  }
+
+  function submitHandler(e) {
+    console.log("hello");
+    e.preventDefault();
+
+    axios
+      .post("https://reqres.in/api/users", kullanici)
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
   console.log(kullanici);
   return (
     <div>
-      <form action="/action_page.php">
+      <form onSubmit={submitHandler}>
         <div>
           <label htmlFor="isim">İsim:</label>
           <input
@@ -79,7 +96,7 @@ export default function Form() {
           <label htmlFor="terms"> Kullanım Şartları (Terms of Service)</label>
         </span>
         <span>
-          <button type="submit">Gönder</button>
+          <input type="submit" value="Gönder" />
         </span>
       </form>
       <button onClick={resetForm}>Formu sıfırla</button>
