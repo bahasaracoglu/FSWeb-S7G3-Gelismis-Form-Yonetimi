@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { object, string, number, date, InferType } from "yup";
 import * as Yup from "yup";
+import "./Form.css";
 
 export default function Form() {
   const initialData = {
@@ -68,72 +69,85 @@ export default function Form() {
 
   console.log(kullanici);
   return (
-    <div>
-      <form onSubmit={submitHandler}>
-        <div>
-          <label htmlFor="isim">İsim:</label>
+    <div className="box">
+      <div className="image-container">
+        <img src="https://fastly.picsum.photos/id/366/4000/3000.jpg?hmac=zphhHOH9ofToN2jNHd8z-nc98NrBd8y2okWXEXetLDg"></img>
+      </div>
+      <div className="form-container">
+        <form onSubmit={submitHandler}>
+          <div>
+            <div>
+              <h2>Create an account</h2>
+              <p>Let's get started with your 30 day free trail.</p>
+            </div>
+            <label htmlFor="isim">İsim:</label>
+            <input
+              onChange={handleOnChange}
+              type="text"
+              id="isim"
+              name="isim"
+              value={kullanici.isim}
+              placeholder="Name"
+            />
+            <label htmlFor="lname">Soyisim:</label>
+            <input
+              onChange={handleOnChange}
+              type="text"
+              id="soyisim"
+              name="soyisim"
+              value={kullanici.soyisim}
+              placeholder="Surname"
+            />
+          </div>
+          <div>
+            <label htmlFor="email">Email:</label>
+            <input
+              onChange={handleOnChange}
+              type="text"
+              id="email"
+              name="email"
+              value={kullanici.email}
+              placeholder="Email"
+            />
+          </div>
+          <div>
+            <label htmlFor="pwd">Şifre:</label>
+            <input
+              onChange={handleOnChange}
+              type="password"
+              id="pwd"
+              name="sifre"
+              value={kullanici.sifre}
+              placeholder="Password"
+            />
+          </div>
           <input
+            checked={kullanici.terms}
             onChange={handleOnChange}
-            type="text"
-            id="isim"
-            name="isim"
-            value={kullanici.isim}
+            type="checkbox"
+            id="terms"
+            name="terms"
+            value="okundu"
           />
-          <label htmlFor="lname">Soyisim:</label>
-          <input
-            onChange={handleOnChange}
-            type="text"
-            id="soyisim"
-            name="soyisim"
-            value={kullanici.soyisim}
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            onChange={handleOnChange}
-            type="text"
-            id="email"
-            name="email"
-            value={kullanici.email}
-          />
-        </div>
-        <div>
-          <label htmlFor="pwd">Şifre:</label>
-          <input
-            onChange={handleOnChange}
-            type="password"
-            id="pwd"
-            name="sifre"
-            value={kullanici.sifre}
-          />
-        </div>
-        <input
-          checked={kullanici.terms}
-          onChange={handleOnChange}
-          type="checkbox"
-          id="terms"
-          name="terms"
-          value="okundu"
-        />
-        <span>
-          <label htmlFor="terms"> Kullanım Şartları (Terms of Service)</label>
-        </span>
-        <span>
-          <input type="submit" value="Gönder" />
-        </span>
-      </form>
-      <button onClick={resetForm}>Formu sıfırla</button>
+          <span>
+            <label htmlFor="terms"> Kullanım Şartları (Terms of Service)</label>
+          </span>
+          <span>
+            <input type="submit" />
+          </span>
+        </form>
+        <button onClick={resetForm}>Formu sıfırla</button>
 
-      {kullanicilar.map((member, i) => (
-        <ul key={i}>
-          {" "}
-          <li>
-            {member.isim} {member.soyisim} {member.email} {member.sifre}{" "}
-            {member.terms}
-          </li>{" "}
-        </ul>
-      ))}
+        {kullanicilar.map((member, i) => (
+          <ul key={i}>
+            {" "}
+            <li>
+              {member.isim} {member.soyisim} {member.email} {member.sifre}{" "}
+              {member.terms}
+            </li>{" "}
+          </ul>
+        ))}
+      </div>
     </div>
   );
 }
